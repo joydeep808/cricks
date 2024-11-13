@@ -1,5 +1,5 @@
 
-package com.cricks.cricks.entity.over;
+package com.cricks.cricks.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

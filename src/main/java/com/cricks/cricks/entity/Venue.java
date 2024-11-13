@@ -1,4 +1,4 @@
-package com.cricks.cricks.entity.venue;
+package com.cricks.cricks.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

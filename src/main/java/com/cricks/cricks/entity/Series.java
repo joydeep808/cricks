@@ -1,5 +1,4 @@
-package com.cricks.cricks.entity.series;
-
+package com.cricks.cricks.entity;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;

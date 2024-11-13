@@ -1,7 +1,6 @@
 
-package com.cricks.cricks.entity.ball;
+package com.cricks.cricks.entity;
 
-import com.cricks.cricks.entity.ball.Ball.BallType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;

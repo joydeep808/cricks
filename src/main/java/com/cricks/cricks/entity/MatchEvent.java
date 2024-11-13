@@ -1,4 +1,4 @@
-package com.cricks.cricks.entity.matchevent;
+package com.cricks.cricks.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -7,7 +7,6 @@ import lombok.*;
 @Entity
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class MatchEvent {
 

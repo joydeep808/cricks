@@ -1,4 +1,4 @@
-package  com.cricks.cricks.entity.team;
+package  com.cricks.cricks.entity;
 
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Entity;

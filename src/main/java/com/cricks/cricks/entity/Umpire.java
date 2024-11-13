@@ -1,5 +1,5 @@
 
-package com.cricks.cricks.entity.umpire;
+package com.cricks.cricks.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,4 +1,4 @@
-package com.cricks.cricks.entity.player;
+package com.cricks.cricks.entity;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -15,7 +15,9 @@ public class Player {
     @Column(nullable=false)
     @NotNull(message="Please enter the player name")
     private String name;
-
+    @Column(nullable = false , unique = true)
+    @NotNull(message = "Please provide the phone number")
+    private Integer phone;
     private String profile_url;
     @NotNull(message="Team id is required")
     private Integer team_id;

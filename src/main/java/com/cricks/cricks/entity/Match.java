@@ -1,8 +1,7 @@
-package com.cricks.cricks.entity.match;
+package com.cricks.cricks.entity;
 
 import java.time.*;
 
-import com.cricks.cricks.entity.match.Match.MatchStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.*;
@@ -11,6 +10,7 @@ import lombok.*;
 @Entity
 @Data
 @Builder
+@AllArgsConstructor
 public class Match {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
