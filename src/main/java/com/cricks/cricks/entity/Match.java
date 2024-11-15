@@ -5,6 +5,7 @@ import java.time.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
@@ -14,19 +15,31 @@ import lombok.*;
 public class Match {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;
-    private Integer team_a;
-    private Integer team_b;
-    @JsonFormat(shape= JsonFormat.Shape.STRING)
-    private LocalDateTime  match_date;
-    private Integer venue_id;
-    private MatchStatus status;
-    private Integer series_id;
+    private Integer Id;
     
+    private Integer teamA;
+    private Integer teamB;
+    @JsonFormat(shape= JsonFormat.Shape.STRING)
+    private LocalDateTime  matchDate;
+    @NotNull(message = "Venue id is required")
+    private Integer venueId;
+    private MatchStatus status;
+    @Column(nullable = false)
+    @NotNull(message = "Series id is required")
+    private Integer seriesId;
+    @Column(nullable = false )
+    @NotNull(message = "Match number should be required")
+    private Integer matchNumber;
+    private MatchType match_type;
+    public enum MatchType{
+        ODI,
+        T20,
+        TEST
+    }
 
 
    
-    enum MatchStatus {
+    public enum MatchStatus {
         PENDING,
         INPROGRESS,
         COMPLETED

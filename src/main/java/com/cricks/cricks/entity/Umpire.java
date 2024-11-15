@@ -11,7 +11,7 @@ import lombok.*;
 public class Umpire {
   @Id
   @GeneratedValue(strategy=GenerationType.IDENTITY)
-  private Integer id;
+  private Integer Id;
   private String name;
   private Integer umpire_profile;
   

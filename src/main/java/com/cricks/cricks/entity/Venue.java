@@ -16,7 +16,7 @@ import lombok.Data;
 public class Venue {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;
+    private Integer Id;
     @NotNull(message="Country is required")
     
     private String country;

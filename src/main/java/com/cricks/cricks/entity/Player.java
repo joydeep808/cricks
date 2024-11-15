@@ -2,16 +2,22 @@ package com.cricks.cricks.entity;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 @Data
+@Entity
+@AllArgsConstructor
+@Builder
 public class Player {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;
+    private Integer Id;
     @Column(nullable=false)
     @NotNull(message="Please enter the player name")
     private String name;

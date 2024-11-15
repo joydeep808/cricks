@@ -1,5 +1,5 @@
 
-package com.cricks.cricks.exception.base_exceptions;
+package com.cricks.cricks.exception.thrown_exception;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

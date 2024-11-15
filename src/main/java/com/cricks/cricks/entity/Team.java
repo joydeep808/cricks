@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class Team {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;
+    private Integer Id;
     @NotNull(message="team name is required")
     private String TeamName;
     @NotNull(message="Short Name is required")
