@@ -7,10 +7,9 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.stereotype.Service;
 
-import com.cricks.cricks.dto.jwt.JwtDto;
+import com.cricks.cricks.dto.jwt.JwtUserInfoDto;
 
 import io.jsonwebtoken.*;
-import jakarta.servlet.http.*;
 
 @Service
 public class JwtService {
@@ -24,7 +23,7 @@ public class JwtService {
     this.secret = new SecretKeySpec(secretBytes, "HmacSHA256");
   }
 
-  public String generateAccessToken(JwtDto createJwt) {
+  public String generateAccessToken(JwtUserInfoDto createJwt) {
     HashMap<String, Object> claims = new HashMap<>();
     claims.put("id", createJwt.getId());
     claims.put("number", createJwt.getNumber());
@@ -40,22 +39,7 @@ public class JwtService {
         .expiration(new Date(System.currentTimeMillis() + expirationTime * 60  * 24)).signWith(secret).compact();
   }
 
-  public Boolean setAccessCookie(HttpServletResponse response ,JwtDto jwtDto){
-    Cookie accessCookie  = new Cookie("accessToken", generateAccessToken(jwtDto));
-    accessCookie.setMaxAge(expirationTime);
-    accessCookie.setDomain("localhost");
-    response.addCookie(accessCookie);
-    return true;
-  }
-
-
-  public Boolean setRefreshCookie(HttpServletResponse response ,Integer id){
-    Cookie accessCookie  = new Cookie("refreshToken", generateRefreshToken(id));
-    accessCookie.setMaxAge(expirationTime * 60 * 24);
-    accessCookie.setDomain("localhost");
-    response.addCookie(accessCookie);
-    return true;
-  }
+ 
 
 
   @SuppressWarnings("deprecation")
@@ -63,13 +47,13 @@ public class JwtService {
    return  Jwts.parser().verifyWith(secret).build().parseClaimsJws(token).getPayload();
   }
 
-  public JwtDto getTokenInfo(String token) throws Exception{
+  public JwtUserInfoDto getTokenInfo(String token) throws Exception{
     Claims claims = extractClaims(token);
-    JwtDto jwtDto = new JwtDto();
-    jwtDto.setId((String) claims.get("id"));
-    jwtDto.setNumber((String) claims.get("number"));
-    jwtDto.setRole((String) claims.get("role"));
-    return jwtDto;
+    JwtUserInfoDto jwtUserInfoDto = new JwtUserInfoDto();
+    jwtUserInfoDto.setId((String) claims.get("id"));
+    jwtUserInfoDto.setNumber((String) claims.get("number"));
+    jwtUserInfoDto.setRole((String) claims.get("role"));
+    return jwtUserInfoDto;
   }
   public Integer getUserId(String token) throws Exception{
     return (Integer) extractClaims(token).get("id");

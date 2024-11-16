@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class JwtDto {
+public class JwtUserInfoDto {
   public String id;
   public String number;
   public String role;

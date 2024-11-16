@@ -3,7 +3,6 @@ package com.cricks.cricks.service.ball;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.cricks.cricks.config.security.AuthenticationAnotation;
 import com.cricks.cricks.entity.Ball;
 import com.cricks.cricks.repository.BallRepo;
 import com.cricks.cricks.util.Response;
