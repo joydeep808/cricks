@@ -1,6 +1,8 @@
 
 package com.cricks.cricks.entity;
 
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.*;
@@ -19,13 +21,8 @@ public class Ball {
   @Positive(message = "Ball number should be positive")
   private Integer ballNumber;
   @JsonFormat(shape = JsonFormat.Shape.STRING)
-  private BallType ballType;
   @Positive
   private Integer run;
-
-  public enum BallType {
-    WIDE, W, NB, DELIVERY
-  }
 
   @NotNull(message = "Please provide the batsman id")
   @Positive(message = "Batsman id should be positive")
@@ -37,23 +34,34 @@ public class Ball {
   @JsonFormat(shape = JsonFormat.Shape.STRING)
   private WicketDetails wicketDetails;
   @JsonFormat(shape = JsonFormat.Shape.STRING)
-  private ExtraRuns extraRuns;
+  private ExtraRunsType extraRunstype;
+  private Integer extraRuns;
+  private BoundaryType boundaryType;
 
-  public enum ExtraRuns{
-    BYE, LEG_BYE  , NO_BALL, WIDE , NONE
+  private Integer bowlerId;
+
+  public enum BoundaryType {
+    FOUR, SIX
+  }
+
+  public enum ExtraRunsType {
+    BYE, LEG_BYE, NO_BALL, WIDE, NONE
   }
 
   public enum WicketDetails {
-    BOWLED, CAUGHT, LBW, STUMPED, RUN_OUT, HIT_WICKET , NONE
+    BOWLED, CAUGHT, LBW, STUMPED, RUN_OUT, HIT_WICKET, NONE
   }
 
-  public Ball() {
+  @JsonFormat(shape = JsonFormat.Shape.STRING)
+  private LocalDateTime createdAt;
 
+  public Ball() {
+    this.createdAt = LocalDateTime.now();
     this.run = 0;
-    this.ballType = BallType.DELIVERY;
     this.isWicket = false;
     this.wicketDetails = WicketDetails.NONE;
-    this.extraRuns = ExtraRuns.NONE;
+    this.extraRuns = 0;
+    this.extraRunstype = ExtraRunsType.NONE;
   }
 
 }

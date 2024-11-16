@@ -18,7 +18,7 @@ public class BatsmanStats {
   @GeneratedValue(strategy=GenerationType.IDENTITY)
   private Integer id;
   @NotNull(message="Player id is required")
-  private Integer playerId;
+  private Integer batsmanId;
   @NotNull(message="Match id is required")
   private Integer matchId;
   
@@ -26,11 +26,13 @@ public class BatsmanStats {
   private Integer runScored;
   private Integer totalBoundries;
   private Integer totalSixes;
+  private Boolean isOut;
 
   public BatsmanStats(){
     this.ballFaced = 0;
     this.totalBoundries = 0;
     this.totalSixes = 0;
     this.runScored = 0;
+    this.isOut = false;
   }
 }

@@ -17,5 +17,8 @@ public interface OverRepo extends JpaRepository<Over, Integer> {
   @Query(value = "SELECT * FROM over WHERE match_id = :match AND over_number = :overNumber" , nativeQuery = true)
   Optional<Over> isOverAlreadyExist(@Param("match") Integer match , @Param("overNumber") Integer overNumber);
 
+  @Query(value = "SELECT is_completed FROM over WHERE id = :over", nativeQuery = true)
+  Optional<Boolean> isOverCompleted(@Param("over") Integer over);
+
 
 }

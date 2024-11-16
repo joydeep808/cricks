@@ -21,15 +21,13 @@ public class Over {
   @NotNull(message = "Team id is requird")
   @Positive(message = "Team id should be positive")
   private Integer teamId;
-  @NotNull(message = "Bowler id is required")
-  @Positive(message = "Bowler id should be positive")
-  private Integer bowler;
   private Integer totalRuns;
   @Positive(message = "Inning number is required")
-  private Integer inningNumer;
-  
+  private Integer inningNumber;
+  private Boolean isCompleted;
 
   public Over() {
+    this.isCompleted = false;
     this.totalRuns = 0;
   }
 

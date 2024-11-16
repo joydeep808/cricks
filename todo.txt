@@ -1,0 +1,67 @@
+
+
+createMatch(MatchDTO matchDTO): Match
+getMatchDetails(Integer matchId): Match
+getAllMatches(): List<Match>
+updateMatchStatus(Integer matchId, MatchStatus status): Match
+getMatchStats(Integer matchId): MatchStats
+
+
+//
+
+createBallRecord(BallRecordDTO ballRecordDTO): BallRecord
+getBallRecordById(Integer ballRecordId): BallRecord
+getBallRecordsByMatchId(Integer matchId): List<BallRecord>
+getBallRecordsByBatsmanId(Integer batsmanId): List<BallRecord>
+getBallRecordsByOverId(Integer overId): List<BallRecord>
+updateBallRecord(Integer ballRecordId, BallRecordDTO ballRecordDTO): BallRecord
+deleteBallRecord(Integer ballRecordId): void
+
+
+
+getBatsmanStats(Integer batsmanId): BatsmanStats
+getBatsmanPerformance(Integer batsmanId, Integer matchId): BatsmanPerformance
+getAllBatsmanStats(): List<BatsmanStats>
+
+
+getBowlerStats(Integer bowlerId): BowlerStats
+getBowlerPerformance(Integer bowlerId, Integer matchId): BowlerPerformance
+getAllBowlerStats(): List<BowlerStats>
+
+
+
+getWicketDetails(Integer ballRecordId): WicketDetails
+recordWicket(Integer ballRecordId, WicketDetails wicketDetails): BallRecord
+getWicketsByMatchId(Integer matchId): List<WicketDetails>
+
+
+
+getOversByBowlerId(Integer bowlerId): List<OverDetails>
+getOversByMatchId(Integer matchId): List<OverDetails>
+getOverDetails(Integer overId): OverDetails
+updateOverDetails(Integer overId, OverDetails details): OverDetails
+
+
+
+getExtraRunsByBallRecordId(Integer ballRecordId): ExtraRuns
+addExtraRuns(Integer ballRecordId, Integer extraRuns, ExtraRunsType type): BallRecord
+getExtraRunsByMatchId(Integer matchId): List<ExtraRuns>
+
+
+getMatchStats(Integer matchId): MatchStats
+getTopBatsman(Integer matchId): PlayerStats
+getTopBowler(Integer matchId): PlayerStats
+getBestStrikeRateBatsman(Integer matchId): PlayerStats
+
+
+
+getPlayerStats(Integer playerId): PlayerStats
+getAllPlayerStats(): List<PlayerStats>
+getCareerStats(Integer playerId): CareerStats
+
+
+
+getUserProfile(Integer userId): UserProfile
+updateUserProfile(Integer userId, UserProfileDTO userProfileDTO): UserProfile
+subscribeToMatch(Integer matchId, User user): void
+getUserSubscriptions(Integer userId): List<Match>
