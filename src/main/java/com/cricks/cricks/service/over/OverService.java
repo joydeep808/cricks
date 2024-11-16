@@ -19,7 +19,6 @@ public class OverService {
   private final OverRepo overRepo;
   private final MatchRepo matchRepo;
 
-
   public ResponseEntity<Response<String>> createAnOver(Over over) throws Exception {
     // Check if an over with the same match ID and over number already exists
     // for the given match and team
@@ -48,8 +47,6 @@ public class OverService {
       throw new OverNotCreated("Over limit should be less than 50", 400);
     }
 
-    
-
     // Save the over as all conditions are satisfied
     overRepo.save(over);
 
@@ -58,11 +55,19 @@ public class OverService {
   }
 
   public ResponseEntity<Response<Over>> getOver(GetOverDto overDto) throws Exception {
+    // Attempt to find the over by match number and over number
     Over over = overRepo.isOverAlreadyExist(overDto.getMatchNumber(), overDto.getOverNumber()).orElseGet(null);
+
+    // If the over does not exist, throw an exception
     if (over == null) {
-      throw new OverNotFound("Over not found with ", 404);
+      throw new OverNotFound("Over not found with match number: " + overDto.getMatchNumber() + " and over number: "
+          + overDto.getOverNumber(), 404);
     }
+
+    // Return a successful response with the found over
     return new Response<Over>().sendSuccessResponse("Over found", 200, over).sendResponseEntity();
   }
+
+  
 
 }
