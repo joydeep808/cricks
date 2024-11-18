@@ -1,4 +1,6 @@
 package com.cricks.cricks.entity;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -10,41 +12,45 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+
 @Data
 @Entity
 @AllArgsConstructor
 @Builder
 public class Player {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
-    @Column(nullable=false)
-    @NotNull(message="Please enter the player name")
+    @Column(nullable = false)
+    @NotNull(message = "Please enter the player name")
     private String name;
-    @Column(nullable = false , unique = true)
+    @Column(nullable = false, unique = true)
     @NotNull(message = "Please provide the phone number")
     private Integer phone;
-    private String profile_url;
-    @NotNull(message="Team id is required")
-    private Integer team_id;
+    private String profileUrl;
+    @NotNull(message = "Team id is required")
+    private Integer teamId;
     private Integer ranking;
-
+    private LocalDate dateOfBirth;
+    private PlayerStatus status;
     private PlayerRoles role;
     private LocalDateTime createdAt;
-    
 
-
-
-
-    enum PlayerRoles {
+    public enum PlayerStatus{
+        CAPPED,
+        UNCAPPED,
+        RETIRED
+    }
+    public enum PlayerRoles {
         KEEPER,
         BATSMAN,
         BOWLER,
         ALLROUNDER
     }
 
-   
+    public Player() {
+        this.createdAt = LocalDateTime.now();
+        this.status = PlayerStatus.UNCAPPED;
+    }
+
 }
-
-
-

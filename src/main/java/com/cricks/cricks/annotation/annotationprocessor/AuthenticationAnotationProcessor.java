@@ -1,4 +1,4 @@
-package com.cricks.cricks.config.security;
+package com.cricks.cricks.annotation.annotationprocessor;
 
 
 import org.aspectj.lang.annotation.Aspect;
@@ -7,8 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.cricks.cricks.annotation.rawannotation.AuthenticationAnnotation;
+import com.cricks.cricks.annotation.rawannotation.AuthenticationAnnotation.Role;
 import com.cricks.cricks.config.CookiesService;
-import com.cricks.cricks.config.security.AuthenticationAnnotation.Role;
 import com.cricks.cricks.dto.jwt.JwtUserInfoDto;
 import com.cricks.cricks.exception.thrown_exception.cookies.UnauthorizedAccess;
 

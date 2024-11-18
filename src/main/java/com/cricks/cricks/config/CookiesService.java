@@ -1,8 +1,10 @@
 package com.cricks.cricks.config;
 
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties.Jwt;
 import org.springframework.stereotype.Service;
 
 import com.cricks.cricks.config.security.JwtService;
+import com.cricks.cricks.dto.jwt.JwtAdminInfo;
 import com.cricks.cricks.dto.jwt.JwtUserInfoDto;
 import com.cricks.cricks.exception.thrown_exception.cookies.CookieNotFound;
 
@@ -17,7 +19,7 @@ public class CookiesService{
   private final JwtService jwtService;
   private final Integer expirationTime = 60 * 60 * 24;
   
-   public Boolean setAccessCookie(HttpServletResponse response ,JwtUserInfoDto jwtDto){
+   public Boolean setAccessCookie(HttpServletResponse response ,JwtAdminInfo jwtDto){
     Cookie accessCookie  = new Cookie("accessToken", jwtService.generateAccessToken(jwtDto));
     accessCookie.setMaxAge(expirationTime);
     accessCookie.setDomain("localhost");
@@ -35,7 +37,7 @@ public class CookiesService{
   }
 
 
-  public JwtUserInfoDto getUserDetailsFromJwt(HttpServletRequest request , HttpServletResponse response) throws Exception{
+  public JwtAdminInfo getUserDetailsFromJwt(HttpServletRequest request , HttpServletResponse response) throws Exception{
    
     Cookie[] cookies = request.getCookies();
     // i want to check the accessToken first and then the refreshToken
@@ -52,14 +54,14 @@ public class CookiesService{
       for (Cookie cookie : cookies) {
         if(cookie.getName().equals("refreshToken")){
            Integer userId = jwtService.getUserId(cookie.getValue());
-           JwtUserInfoDto jwtUserInfoDto = new JwtUserInfoDto();
-           jwtUserInfoDto.setId(userId.toString());
-           jwtUserInfoDto.setNumber("1234567890");
-           jwtUserInfoDto.setRole("ADMIN");
-           jwtService.generateAccessToken(jwtUserInfoDto); 
-           setAccessCookie(response, jwtUserInfoDto);
+           JwtAdminInfo JwtAdminInfo = new JwtAdminInfo();
+           JwtAdminInfo.setId(userId.toString());
+           JwtAdminInfo.setNumber("1234567890");
+           JwtAdminInfo.setRole("ADMIN");
+           jwtService.generateAccessToken(JwtAdminInfo); 
+           setAccessCookie(response, JwtAdminInfo);
            response.addCookie(cookie);
-           return jwtUserInfoDto;
+           return JwtAdminInfo;
         }
 
       }

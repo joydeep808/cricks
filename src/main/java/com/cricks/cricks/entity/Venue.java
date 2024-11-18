@@ -18,7 +18,8 @@ public class Venue {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer Id;
     @NotNull(message="Country is required")
-    
+    @NotNull(message = "Venue name is required")
+    private String venueName;
     private String country;
     @NotNull(message="Location is required")
 

@@ -1,4 +1,4 @@
-package com.cricks.cricks.config.security;
+package com.cricks.cricks.annotation.rawannotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

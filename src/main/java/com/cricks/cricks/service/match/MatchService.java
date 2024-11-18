@@ -10,6 +10,7 @@ import com.cricks.cricks.entity.Match.MatchStatus;
 import com.cricks.cricks.entity.Series.SeriesStatus;
 import com.cricks.cricks.exception.thrown_exception.match.*;
 import com.cricks.cricks.exception.thrown_exception.series.*;
+import com.cricks.cricks.mapper.match.GetMatchInfoMapper;
 import com.cricks.cricks.repository.*;
 import com.cricks.cricks.util.Response;
 
@@ -108,6 +109,13 @@ public class MatchService {
     return new Response<String>().sendSuccessResponse("Match status update successfully done!", 200 ).sendResponseEntity();
   }
 
+  public ResponseEntity<Response<GetMatchInfoMapper>> getMatchInfo(Integer id) throws Exception{
+
+    GetMatchInfoMapper foundMatch = matchRepo.getMatchInfo(id).orElse(null);
+    if (foundMatch == null) throw new MatchNotFound("Match not found with this id", 404);
+    return new Response<GetMatchInfoMapper>().sendSuccessResponse("Update successfully done!", 200, foundMatch)
+        .sendResponseEntity();
+  }
   
   
 }

@@ -1,6 +1,5 @@
 package com.cricks.cricks.exception.thrown_exception.team;
 
-import java.nio.charset.MalformedInputException;
 
 import com.cricks.cricks.exception.thrown_exception.MainException;
 
