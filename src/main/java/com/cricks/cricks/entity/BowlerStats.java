@@ -1,23 +1,37 @@
 package com.cricks.cricks.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Entity
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class BowlerStats {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  public Integer id;
-  public Integer bowlerId;
-  public Integer matchId;
-  public Integer balls;
-  public Integer runsGiven;
-  public Integer wickets;
+  private Integer id;
+  @NotNull(message = "Bowler id is required")
+  @Positive
+  private Integer bowlerId;
+  @NotNull(message = "Match id is required")
+  @Positive(message = "Match id should be positive")
+  private Integer matchId;
+  private Integer balls;
+  private Integer runsGiven;
+  private Integer wickets;
+  @JsonFormat(shape = JsonFormat.Shape.STRING)
+  private LocalDate createdAt;
+
+
+  public BowlerStats(){
+    this.createdAt = LocalDate.now();
+  }
+  
+
 }

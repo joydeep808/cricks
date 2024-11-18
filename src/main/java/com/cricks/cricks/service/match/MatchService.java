@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.cricks.cricks.dto.match.TeamsFromMatchDto;
 import com.cricks.cricks.dto.match.UpdateMatchDetailsDto;
 import com.cricks.cricks.entity.*;
+import com.cricks.cricks.entity.Match.MatchStatus;
 import com.cricks.cricks.entity.Series.SeriesStatus;
 import com.cricks.cricks.exception.thrown_exception.match.*;
 import com.cricks.cricks.exception.thrown_exception.series.*;
@@ -97,4 +98,16 @@ public class MatchService {
 
   }
 
+
+
+  public ResponseEntity<Response<String>> updateMatchStatus(Integer matchId , String status )throws Exception{
+    Match foundMatch = matchRepo.findById(matchId).orElse(null);
+    if (foundMatch == null) throw new MatchNotFound("Match not found with this id", 404);
+    foundMatch.setStatus(MatchStatus.valueOf(status));
+    matchRepo.save(foundMatch);
+    return new Response<String>().sendSuccessResponse("Match status update successfully done!", 200 ).sendResponseEntity();
+  }
+
+  
+  
 }

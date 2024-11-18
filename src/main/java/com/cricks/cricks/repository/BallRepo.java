@@ -18,4 +18,9 @@ public interface BallRepo extends JpaRepository<Ball, Object> {
 
   @Query(value =  "SELECT b.* FROM ball as B JOIN over AS o ON b.id = o.over_id WHERE o.match_id = :matchId AND o.innings = :innings", nativeQuery = true)
   Page<List<Ball>> getAllBallsByMatchAndInnings( @Param("matchId") Integer matchId ,@Param("innings") Integer integer , Pageable pageable);
+
+
+  @Query(value =  "SELECT b.* FROM ball as b JOIN over AS o ON b.id = o.over_id WHERE o.match_id = :matchId AND o.innings = :innings AND o.over_number = :overNumber", nativeQuery = true)
+  List<Ball> getBallsOfAnOver(@Param("matchId") Integer matchId , @Param("overNumber") Integer overNumber , @Param("innings") Integer inningsNumber );
+
 }

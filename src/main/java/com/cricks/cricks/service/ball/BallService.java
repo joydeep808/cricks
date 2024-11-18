@@ -2,16 +2,11 @@ package com.cricks.cricks.service.ball;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.cricks.cricks.entity.Ball;
-import com.cricks.cricks.entity.BatsmanStats;
-import com.cricks.cricks.entity.BowlerStats;
+import com.cricks.cricks.entity.*;
 import com.cricks.cricks.entity.Ball.BoundaryType;
 import com.cricks.cricks.exception.thrown_exception.match.MatchNotFound;
 import com.cricks.cricks.exception.thrown_exception.over.*;
@@ -89,7 +84,7 @@ public class BallService {
 
   // Get ball service
 
-  public ResponseEntity<Response<Page<List<Ball>>>> getBallRecordsByMatchId(Integer matchId, Integer innings,
+  public ResponseEntity<Response<Page<List<Ball>>>> getBallRecordsByMatchIdAndInnings(Integer matchId, Integer innings,
       Integer pageNumber) throws Exception {
     Pageable pageRequest = PageRequest.of(pageNumber <= 0 ? 0 : pageNumber - 1, 10, Sort.by("ball_number"));
     Page<List<Ball>> allBallsByMatchAndInnings = ballRepo.getAllBallsByMatchAndInnings(matchId, innings, pageRequest);
@@ -100,4 +95,19 @@ public class BallService {
     return new Response<Page<List<Ball>>>()
         .sendSuccessResponse("Ball records found successfully", 200, allBallsByMatchAndInnings).sendResponseEntity();
   }
+
+
+  public ResponseEntity<Response<List<Ball>>> getBallsOfAnOver(Integer matchId , Integer overNumber , Integer inningsNumber) throws Exception{
+    List<Ball> allBallsOfAnOver = ballRepo.getBallsOfAnOver(matchId  , overNumber , inningsNumber);
+    if (allBallsOfAnOver.isEmpty() && allBallsOfAnOver.size() == 0) {
+      throw new OverNotFound("Over not found", 404);
+    }
+    return new Response<List<Ball>>().sendSuccessResponse("Balls found successfully", 200, allBallsOfAnOver).sendResponseEntity();
+        
+  }
+
+
+  
+
+  
 }

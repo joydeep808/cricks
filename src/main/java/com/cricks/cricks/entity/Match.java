@@ -42,7 +42,8 @@ public class Match {
     public enum MatchStatus {
         PENDING,
         INPROGRESS,
-        COMPLETED
+        COMPLETED, 
+        SCHEDULED
     }
     
     public Match(){

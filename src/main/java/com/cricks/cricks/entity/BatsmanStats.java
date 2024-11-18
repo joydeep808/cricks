@@ -1,5 +1,9 @@
 package com.cricks.cricks.entity;
 
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,9 +31,23 @@ public class BatsmanStats {
   private Integer totalBoundries;
   private Integer totalSixes;
   private Boolean isOut;
+  private OutType outType;
+  @JsonFormat(shape = JsonFormat.Shape.STRING)
+  
+  private LocalDate  createdAt;
+  
 
+  public enum OutType{
+    RUN_OUT,
+    CAUGHT,
+    BOWLED,
+    LBW,
+    STUMPED,
+    NONE
+  }
   public BatsmanStats(){
     this.ballFaced = 0;
+    this.createdAt = LocalDate.now();
     this.totalBoundries = 0;
     this.totalSixes = 0;
     this.runScored = 0;

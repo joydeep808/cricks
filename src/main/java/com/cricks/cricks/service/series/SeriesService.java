@@ -3,9 +3,11 @@ package com.cricks.cricks.service.series;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.cricks.cricks.dto.series.SeriesWiseMatchDto;
 import com.cricks.cricks.entity.Series;
 import com.cricks.cricks.exception.thrown_exception.series.SeriesNotFound;
 import com.cricks.cricks.mapper.series.SeriesWiseMatchsDetailsMapper;
@@ -48,6 +50,17 @@ public class SeriesService {
       return response.sendErrorResponse("Series not found " , 404).sendResponseEntity();
     }
     return response.sendSuccessResponse("Series found" , 200 , series).sendResponseEntity();
+  }
+
+  public ResponseEntity<Response<Page<SeriesWiseMatchDto>>> getUpcommingPendingSeriesWiseMatches(Integer pageNumber) throws Exception{
+    Pageable pageRequest = PageRequest.of(pageNumber <= 0 ? 0 : pageNumber - 1, 10 , Sort.by("match_date").ascending());
+    Page<SeriesWiseMatchDto> seriesWiseMatchDtos = seriesRepo.getUpcommingPendingSeriesWiseMatches(pageRequest);
+    if (seriesWiseMatchDtos.isEmpty() && seriesWiseMatchDtos.getTotalElements() == 0) {
+      throw new SeriesNotFound("Series not found", 404);
+    }
+
+    return new Response<Page<SeriesWiseMatchDto>>().sendSuccessResponse("Successfully found", 200 , seriesWiseMatchDtos)
+        .sendResponseEntity();
   }
   
 }
