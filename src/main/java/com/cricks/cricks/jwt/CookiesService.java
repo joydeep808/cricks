@@ -1,11 +1,8 @@
-package com.cricks.cricks.config;
+package com.cricks.cricks.jwt;
 
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties.Jwt;
 import org.springframework.stereotype.Service;
 
-import com.cricks.cricks.config.security.JwtService;
 import com.cricks.cricks.dto.jwt.JwtAdminInfo;
-import com.cricks.cricks.dto.jwt.JwtUserInfoDto;
 import com.cricks.cricks.exception.thrown_exception.cookies.CookieNotFound;
 
 import jakarta.servlet.http.Cookie;

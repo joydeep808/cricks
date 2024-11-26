@@ -30,12 +30,22 @@ public class BatsmanStats {
   private Integer runScored;
   private Integer totalBoundries;
   private Integer totalSixes;
+  private Integer outBy;
   private Boolean isOut;
+  private BatsmanStatus status;
+
   private OutType outType;
   @JsonFormat(shape = JsonFormat.Shape.STRING)
   
   private LocalDate  createdAt;
-  
+
+
+  public enum BatsmanStatus{
+    NOT_OUT,
+    OUT,
+    NOT_BATTED // Player not get the chance to bat 
+
+  }
 
   public enum OutType{
     RUN_OUT,
@@ -46,6 +56,7 @@ public class BatsmanStats {
     NONE
   }
   public BatsmanStats(){
+    this.status = BatsmanStatus.NOT_BATTED;
     this.ballFaced = 0;
     this.createdAt = LocalDate.now();
     this.totalBoundries = 0;

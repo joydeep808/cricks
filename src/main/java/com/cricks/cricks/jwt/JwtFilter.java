@@ -1,4 +1,4 @@
-package com.cricks.cricks.config.security;
+package com.cricks.cricks.jwt;
 
 import org.springframework.context.annotation.Configuration;
 

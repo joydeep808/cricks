@@ -1,4 +1,4 @@
-package com.cricks.cricks.config.security;
+package com.cricks.cricks.jwt;
 
 import java.util.*;
 
@@ -8,7 +8,6 @@ import javax.crypto.spec.SecretKeySpec;
 import org.springframework.stereotype.Service;
 
 import com.cricks.cricks.dto.jwt.JwtAdminInfo;
-import com.cricks.cricks.dto.jwt.JwtUserInfoDto;
 
 import io.jsonwebtoken.*;
 

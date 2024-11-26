@@ -21,11 +21,13 @@ public class MatchEvent {
   private Integer total_boundaries;
   private Integer total_sixes;
   private Integer total_runs;
+  private Integer totalWickets;
 
   public MatchEvent() {
   this.total_boundaries = 0;
   this.total_runs = 0;
   this.total_sixes = 0;
+  this.totalWickets = 0;
   }
 
 }

@@ -1,4 +1,3 @@
-
 package com.cricks.cricks.entity;
 
 import java.time.LocalDateTime;

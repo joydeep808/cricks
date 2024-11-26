@@ -24,6 +24,6 @@ public interface SeriesRepo extends JpaRepository<Series, Integer> {
   @Query(value = " SELECT s.id as seriesId , m.id AS matchId , t1.team_name as teamA  , t2.team_name AS teamB , m.match_date , m.status as matchStatus FROM series as s JOIN match as m ON m.id = s.id JOIN team as t1 ON t1.id = m.team_a JOIN team as t2 ON t2.id = m.team_b WHERE s.id = :series_id ", nativeQuery = true)
   Optional<List<SeriesWiseMatchsDetailsMapper>> findTheMatchesWithTheSeries(@Param("series_id") Integer series_id);
 
-  @Query(value = "SELECT s.id AS seriesId , s.name AS seriesName , m.id as MatchId , t1.team_name AS TeamNameA , t2.team_name AS TeamNameB , m.match_date , m.status as MatchStatus , m.match_type , s.discription  FROM series as s JOIN match as m ON m.id = s.id JOIN team as t1 ON t1.id = m.team_a JOIN team as t2 ON t2.id = m.team_b WHERE s.status = 'PENDING LIMIT 10" , nativeQuery = true)
+  @Query(value = "SELECT s.id AS seriesId , s.name AS seriesName , m.id as MatchId , t1.team_name AS TeamNameA , t2.team_name AS TeamNameB , m.match_date , m.status as MatchStatus , m.match_type , s.discription  FROM series as s JOIN match as m ON m.id = s.id JOIN team as t1 ON t1.id = m.team_a JOIN team as t2 ON t2.id = m.team_b WHERE s.status = 'PENDING' LIMIT 10" , nativeQuery = true)
   Page<SeriesWiseMatchDto> getUpcommingPendingSeriesWiseMatches(Pageable pageable);
 }

@@ -28,6 +28,11 @@ public class BowlerStats {
   @JsonFormat(shape = JsonFormat.Shape.STRING)
   private LocalDate createdAt;
 
+  private BowlerStatus status;
+  public enum BowlerStatus{
+    BOWLING,
+    NOT_BOWLING
+  }
 
   public BowlerStats(){
     this.createdAt = LocalDate.now();

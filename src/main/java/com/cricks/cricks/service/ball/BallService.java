@@ -12,6 +12,7 @@ import com.cricks.cricks.exception.thrown_exception.match.MatchNotFound;
 import com.cricks.cricks.exception.thrown_exception.over.*;
 import com.cricks.cricks.repository.*;
 import com.cricks.cricks.service.batsman.BatsmanService;
+import com.cricks.cricks.service.websocket.MatchWebSocketService;
 import com.cricks.cricks.util.Response;
 
 import lombok.RequiredArgsConstructor;
@@ -23,11 +24,12 @@ public class BallService {
   private final OverRepo overRepo;
   private final BatsmanStatsRepo batsmanStatsRepo;
   private final BowlerStatsRepo bowlerStatsRepo;
+  private final MatchWebSocketService matchWebSocketService;
   private final BatsmanService batsmanService;
+  private final MatchEventRepo matchEventRepo;
 
   public ResponseEntity<Response<Ball>> createBall(Ball ball, Integer matchId) throws Exception {
     Boolean isOverFound = overRepo.isOverCompleted(ball.getOverId()).orElse(null);
-    ;
     if (isOverFound == null) {
       throw new OverNotFound("Over not found", 404);
     }
@@ -38,11 +40,17 @@ public class BallService {
     BatsmanStats foundBatsmanStats = batsmanStatsRepo.findByMatchIdAndBatsmanId(matchId, ball.getBallNumber())
         .orElse(null);
     updateBatsmanStats(ball, foundBatsmanStats, matchId);
-
+    MatchEvent foundMatchEvent = matchEventRepo.findByMatchIdAndTeam(matchId , 1).orElse(null);;
+    foundMatchEvent.setTotal_runs(foundMatchEvent.getTotal_runs() + ball.getRun());
+    foundMatchEvent.setTotal_boundaries(foundMatchEvent.getTotal_boundaries() + (ball.getBoundaryType().equals(BoundaryType.FOUR) ? 1 : 0));
+    foundMatchEvent.setTotalWickets(foundMatchEvent.getTotalWickets() + (ball.getIsWicket() ? 1 : 0));
+    foundMatchEvent.setTotal_sixes(foundMatchEvent.getTotal_sixes() + (ball.getBoundaryType().equals(BoundaryType.SIX) ? 1 : 0));
+    matchEventRepo.save(foundMatchEvent);
     BowlerStats foundBowlerStats = bowlerStatsRepo.findByMatchIdAndBowlerId(matchId, ball.getBallNumber()).orElse(null);
     updateBowlerStats(ball, matchId, foundBowlerStats);
     ballRepo.save(ball);
-
+    matchWebSocketService.sendMatchDetails(matchId, ball);
+    
     return new Response<Ball>().sendSuccessResponse("Ball created successfully done!", 201, ball).sendResponseEntity();
   }
 

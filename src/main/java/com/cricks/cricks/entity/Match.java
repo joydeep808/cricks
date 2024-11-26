@@ -27,6 +27,7 @@ public class Match {
     @Column(nullable = false)
     @NotNull(message = "Series id is required")
     private Integer seriesId;
+    private Integer winningTeam;
     @Column(nullable = false )
     @NotNull(message = "Match number should be required")
     private Integer matchNumber;
